@@ -2,13 +2,9 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
 const router = express.Router();
-
 router.post('/register', async (req, res) => {
   const { email, password, username, isAdmin } = req.body;
-
-  // Check if email is already in use
   const existingUser = await User.findOne({ email });
   if (existingUser) return res.status(403).json({ message: 'Email already in use' });
 
